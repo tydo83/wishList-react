@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Button from './button'
+import "./Child.css"
 
 export default class Child extends Component {
     state = {
@@ -20,6 +21,10 @@ export default class Child extends Component {
         this.props.handleEditUpdateTodo(id, this.state.toggleInput)
     }
 
+    handleCheckbox = (item) => {
+        console.log(item)    
+    }
+
     render() {
         return (
             <div>
@@ -31,17 +36,18 @@ export default class Child extends Component {
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="Enter wish list"
+                            placeholder="Enter your item"
                             name="inputWishList"
                             value={this.props.inputWishList}
                             onChange={this.props.handleOnChange}
                         />
-                        <button className="btn btn-primary" type="submit">Add</button>
+                        <button className="btn btn-primary mb-3" type="submit">Add</button>
                     </div>
                 </form>
                 <ul>
                     {this.props.wishList.map((item) => {
                         return (
+                            <div className="container">
                             <React.Fragment key = {item.id}>
                                 {item.isEditToggle ? 
                                     <input
@@ -54,6 +60,11 @@ export default class Child extends Component {
                                     {item.item}
                                 </li>
                                 }
+                                <input 
+                                    style={{marginRight: "10px"}} 
+                                    type="checkbox"
+                                    onClick={() => {this.handleCheckbox(item)}}
+                                    />
                                 <Button
                                 propsClassName={"btn btn-success button-style"}
                                 propsName={item.isEditToggle ? "Submit" : "Edit"}
@@ -71,6 +82,7 @@ export default class Child extends Component {
                                 propsName={"Delete"}
                                 />
                             </React.Fragment>
+                            </div>
                         )
                     })}
                 </ul>

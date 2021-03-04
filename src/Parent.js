@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import Child from './Child'
+import "./Parent.css"
 
 export default class Parent extends Component {
     state = {
@@ -98,9 +99,11 @@ export default class Parent extends Component {
         })
     }
 
+    handlePriority = (id) => {}
+
     render() {
         return (
-            <div>
+            <div className="parent-container">
                 <Child 
                     handleOnSubmit={this.handleOnSubmit}
                     handleOnChange={this.handleOnChange}
@@ -108,6 +111,7 @@ export default class Parent extends Component {
                     handlePurchased={this.handlePurchased}
                     handleEditToggle={this.handleEditToggle}
                     handleEditUpdateTodo={this.handleEditUpdateTodo}
+                    handlePriority={this.handlePriority}
                     inputWishList={this.inputWishList}
                     wishList={this.state.wishList}
                     />
