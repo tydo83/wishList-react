@@ -21,10 +21,6 @@ export default class Child extends Component {
         this.props.handleEditUpdateTodo(id, this.state.toggleInput)
     }
 
-    handleCheckbox = (item) => {
-        console.log(item)    
-    }
-
     render() {
         return (
             <div>
@@ -45,7 +41,7 @@ export default class Child extends Component {
                     </div>
                 </form>
                 <ul>
-                    {this.props.wishList.map((item) => {
+                    {this.props.wishList.map((item, index) => {
                         return (
                             <div className="container">
                             <React.Fragment key = {item.id}>
@@ -63,7 +59,13 @@ export default class Child extends Component {
                                 <input 
                                     style={{marginRight: "10px"}} 
                                     type="checkbox"
-                                    onClick={() => {this.handleCheckbox(item)}}
+                                    checked = {item.isFavorite}
+                                    onClick={()=>this.props.handlePriority(
+                                        item.id,
+                                        index,
+                                        item.isFavorite,
+                                    )
+                                }
                                     />
                                 <Button
                                 propsClassName={"btn btn-success button-style"}

@@ -12,6 +12,7 @@ export default class Parent extends Component {
                 isDone: false,
                 isEditToggle: false,
                 isButtonToggle: false,
+                isFavorite: false,
             },
             {
                 id: uuidv4(),
@@ -19,6 +20,7 @@ export default class Parent extends Component {
                 isDone: false,
                 isEditToggle: false,
                 isButtonToggle: false,
+                isFavorite: false,
             }
         ],
         inputWishList: "",
@@ -33,6 +35,7 @@ export default class Parent extends Component {
                 isDone: false,
                 isEditToggle: false,
                 isButtonToggle: false,
+                isFavorite: false,
             }
         ]
         this.setState({
@@ -99,7 +102,32 @@ export default class Parent extends Component {
         })
     }
 
-    handlePriority = (id) => {}
+    helperFunctionToggleFavorite = (id) => {
+        return this.state.wishList.map((item) => {
+            if(item.id === id) {
+                item.isFavorite = !item.isFavorite
+            }
+            return item
+        })
+    }
+
+    handlePriority = (id, index, isFavorite) => {
+        if(isFavorite === true) {
+            let toggleFavoriteArray = this.helperFunctionToggleFavorite(id)
+            
+            this.setState({
+                todoList: toggleFavoriteArray,
+            })
+            return
+        }
+
+        let toggleFavoriteArray = this.helperFunctionToggleFavorite(id)
+        let splicedTargetArray = toggleFavoriteArray.splice(index, 1)
+        let newReorderedArray = [...splicedTargetArray, ...toggleFavoriteArray]
+        this.setState({
+            wishList: newReorderedArray
+        })
+    }
 
     render() {
         return (
@@ -114,6 +142,7 @@ export default class Parent extends Component {
                     handlePriority={this.handlePriority}
                     inputWishList={this.inputWishList}
                     wishList={this.state.wishList}
+                    // priorityHelper = {helperFunctionToggleFavorite}
                     />
             </div>
         )
